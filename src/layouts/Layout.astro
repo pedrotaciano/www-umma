@@ -2,7 +2,6 @@
 import "../styles/global.css";
 
 const { title = "Umma" } = Astro.props;
-const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
 ---
 
 <html lang="en">
@@ -13,22 +12,20 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
     <link rel="icon" href="/favicon.ico" />
     <title>{title}</title>
     {
-      gaMeasurementId && (
-        <>
           <script
             async
-            src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}
+            src={`https://www.googletagmanager.com/gtag/js?id=G-MDW8XFE46B`}
           />
-          <script define:vars={{ gaMeasurementId }}>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {
-              window.dataLayer.push(arguments);
+          <script>
+            const w = window as any;
+            w.dataLayer = w.dataLayer || [];
+            function gtag(p0?: string, p1?: any) {
+              w.dataLayer.push(arguments);
             }
             gtag("js", new Date());
-            gtag("config", gaMeasurementId);
+            gtag("config", 'G-MDW8XFE46B');
           </script>
-        </>
-      )
+      
     }
   </head>
 
