@@ -1,0 +1,90 @@
+---
+import { getCollection } from "astro:content";
+import ProductCard from "./ProductCard.astro";
+
+const products = (await getCollection("products")).sort((a, b) =>
+  a?.data.title.localeCompare(b.data.title),
+);
+---
+
+<section class="product-grid" id="produtos" data-products-grid>
+  {products.map((product) => <ProductCard product={product} />)}
+</section>
+
+<script>
+  const hairTypes = ["Liso", "Ondulado", "Cacheado", "Crespo"];
+
+  const getCompatibilityScore = (selectedType, productType) => {
+    const selectedIndex = hairTypes.indexOf(selectedType);
+    const productIndex = hairTypes.indexOf(productType);
+
+    if (selectedIndex === -1 || productIndex === -1) {
+      return 0;
+    }
+
+    const distance = Math.abs(selectedIndex - productIndex);
+    return Math.max(100 - distance * 25, 0);
+  };
+
+  const getScoreStyles = (score) => {
+    if (score > 90) {
+      return {
+        background: "#2f9e44",
+        text: "var(--bg)",
+      };
+    }
+
+    if (score > 50) {
+      return {
+        background: "#f2b705",
+        text: "var(--text)",
+      };
+    }
+
+    return {
+      background: "#d9480f",
+      text: "var(--bg)",
+    };
+  };
+
+  window.addEventListener("umma:hair-profile-calibrated", (event) => {
+    const selectedType = event.detail?.hairType;
+    const productGrid = document.querySelector("[data-products-grid]");
+
+    if (!productGrid) {
+      return;
+    }
+
+    const scoredCards = Array.from(
+      document.querySelectorAll("[data-product-card]"),
+    ).map((card) => {
+      const scoreBadge = card.querySelector("[data-compatibility-score]");
+      const productType = card.dataset.compatibility;
+      const score = getCompatibilityScore(selectedType, productType);
+      const scoreStyles = getScoreStyles(score);
+
+      scoreBadge.textContent = `${score}%`;
+      scoreBadge.style.setProperty("--score-background", scoreStyles.background);
+      scoreBadge.style.setProperty("--score-text", scoreStyles.text);
+      scoreBadge.hidden = false;
+
+      return {
+        card,
+        score,
+      };
+    });
+
+    scoredCards
+      .sort((a, b) => b.score - a.score)
+      .forEach(({ card }) => productGrid.append(card));
+  });
+</script>
+
+<style>
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 5.5625rem 2.5rem;
+    width: 100%;
+  }
+</style>

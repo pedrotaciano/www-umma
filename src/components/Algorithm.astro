@@ -1,0 +1,194 @@
+---
+import { Image } from "astro:assets";
+import hero from "../assets/hero.jpg";
+
+const hairTypes = ["Liso", "Ondulado", "Cacheado", "Crespo"];
+---
+
+<div class="algorithm-shell" data-algorithm>
+  <Image
+    class="algorithm-background object-cover h-full w-full md:object-[center_32%]"
+    src={hero}
+    alt="Mulher lavando o cabelo"
+    loading="eager"
+    fetchpriority="high"
+  />
+
+  <div class="algorithm-panel" data-intro>
+    <h1 class="text-(--bg)">Calibrar algoritmo</h1>
+    <button
+      class="bg-(--clay) hover:bg-(--clay-hover) text-(--bg)"
+      type="button"
+      data-start
+    >
+      Iniciar (1min)
+    </button>
+  </div>
+
+  <div class="algorithm-panel quiz-panel h-full" data-quiz hidden>
+    <p class="opacity-50 text-(--bg)">Pergunta 1 de 1</p>
+    <h1>Qual seu tipo de cabelo?</h1>
+
+    <div class="answers" aria-label="Tipo de cabelo">
+      {
+        hairTypes.map((type) => (
+          <button class="clay quiz-button" data-answer={type}>
+            {type}
+          </button>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="algorithm-panel results-panel" data-results hidden>
+    <div>
+      <h1>Algoritmo calibrado.</h1>
+      <p class="opacity-50 text-(--bg) text-balance max-w-3xs my-2">
+        Agora você pode explorar o acervo com a métrica de compatibilidade.
+      </p>
+    </div>
+    <div class="result-actions">
+      <button
+        class="check-products-button bg-(--clay) hover:bg-(--clay-hover) text-(--bg)"
+        type="button"
+        data-check-products
+      >
+        Acervo
+      </button>
+      <button class="opacity-55" type="reset" data-restart> Recalibrar </button>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ hairTypes }}>
+  const shell = document.querySelector("[data-algorithm]");
+  const intro = document.querySelector("[data-intro]");
+  const quiz = document.querySelector("[data-quiz]");
+  const results = document.querySelector("[data-results]");
+  const startButton = document.querySelector("[data-start]");
+  const restartButton = document.querySelector("[data-restart]");
+  const checkProductsButton = document.querySelector("[data-check-products]");
+
+  const showPanel = (panel) => {
+    intro.hidden = panel !== intro;
+    quiz.hidden = panel !== quiz;
+    results.hidden = panel !== results;
+  };
+
+  const showResults = (selectedType) => {
+    window.dispatchEvent(
+      new CustomEvent("umma:hair-profile-calibrated", {
+        detail: {
+          hairType: selectedType,
+          hairTypes,
+        },
+      }),
+    );
+
+    showPanel(results);
+  };
+
+  startButton.addEventListener("click", () => {
+    shell.classList.add("is-active");
+    showPanel(quiz);
+  });
+
+  restartButton.addEventListener("click", () => {
+    showPanel(quiz);
+  });
+
+  checkProductsButton.addEventListener("click", () => {
+    document.querySelector("[data-products-grid]")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  });
+
+  document.querySelectorAll("[data-answer]").forEach((button) => {
+    button.addEventListener("click", () => {
+      showResults(button.dataset.answer);
+    });
+  });
+</script>
+
+<style>
+  .algorithm-shell {
+    position: absolute;
+    inset: 0;
+    isolation: isolate;
+  }
+
+  .algorithm-background {
+    transition:
+      filter 300ms ease,
+      transform 300ms ease;
+  }
+
+  .algorithm-shell.is-active .algorithm-background {
+    filter: blur(12px) brightness(0.68);
+    transform: scale(1.04);
+  }
+
+  .algorithm-panel {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+
+    width: 100%;
+    transform: translate(-50%, -50%);
+    color: var(--bg);
+    text-align: center;
+  }
+
+  .quiz-panel,
+  .results-panel {
+    padding: 1.5rem;
+  }
+
+  .quiz-panel h2,
+  .results-panel h2 {
+    color: var(--bg);
+  }
+
+  .answers {
+    display: grid;
+    width: 60%;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2rem;
+  }
+
+  .quiz-button {
+    aspect-ratio: 1/1;
+    width: 100%;
+    font-size: 1.25rem; 
+  }
+
+  .quiz-button:nth-child(even) {
+    background: var(--red);
+  }
+
+  .success-copy {
+    max-width: 32rem;
+    color: var(--bg);
+  }
+
+  .result-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 520px) {
+    .answers {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

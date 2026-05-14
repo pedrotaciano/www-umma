@@ -1,0 +1,60 @@
+@import "tailwindcss";
+@import "tokens.css";
+
+html {
+  font-family:
+    Instrument Sans,
+    system-ui,
+    sans-serif;
+  font-weight: 500;
+
+  background: var(--bg);
+  color: var(--text);
+}
+
+body {
+  min-height: 100dvh;
+}
+
+h1 {
+  font-size: 20px;
+  margin: 0;
+}
+
+h2 {
+  font-size: 30px;
+  margin: 0;
+}
+
+button {
+  font-size: 1rem;
+  line-height: 1.25rem;
+  font-weight: medium;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+button.clay {
+  background: var(--clay);
+  color: var(--bg);
+}
+button.clay:hover {
+  background: var(--clay-hover);
+}
+button.red {
+  background: var(--red);
+  color: var(--bg);
+}
+button.red:hover {
+  background: var(--red-hover);
+}
+button.card {
+  background: var(--card);
+  color: var(--text);
+}
+button.card:hover {
+  background: var(--card-hover);
+  padding-bottom: 0.625rem;
+}

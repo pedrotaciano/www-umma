@@ -41,6 +41,16 @@ All commands are run from the root of the project, from a terminal:
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
 
+## Analytics
+
+Google Analytics is loaded from the global layout when this environment variable is set:
+
+```sh
+PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
+```
+
+Copy `.env.example` to `.env` and replace the value with the GA4 Measurement ID.
+
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).

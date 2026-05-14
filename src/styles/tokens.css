@@ -1,0 +1,12 @@
+:root {
+    --bg: #fff;
+    --stroke: hsla(0, 0%, 53%, 0.21);
+    --text: #555;
+    --muted: #888;
+    --card: #e8e8e8;
+    --card-hover: #d4d4d4;
+    --clay: #EF8354;
+    --clay-hover: #E2733B;
+    --red: #FB5D52;
+    --red-hover: #F44336;
+}

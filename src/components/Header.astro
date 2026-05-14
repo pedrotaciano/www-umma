@@ -1,0 +1,16 @@
+---
+import { Image } from "astro:assets";
+import logo from "../assets/logo.svg";
+---
+
+<header class="fixed w-full">
+  <div class="w-full flex items-center justify-between z-999 p-6 md:p-12">
+    <button class="bg-(--card) hover:border-(--stroke) text-(--text)"
+      >Menu</button
+    >
+    <Image src={logo} alt="Logo da Umma" loading="eager" fetchpriority="high" />
+    <button class="bg-(--card) hover:border-(--stroke) text-(--text)"
+      >Contato</button
+    >
+  </div>
+</header>

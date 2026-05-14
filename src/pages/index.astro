@@ -1,11 +1,50 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import HomeLayout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import ProductsGrid from "../components/ProductsGrid.astro";
+import Algorithm from "../components/Algorithm.astro";
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<HomeLayout>
+  <div id="container">
+	<Header />
+    <main class="md:px-12">
+      <section id="hero">
+        <h1>Curadoria inteligente para o seu cabelo.</h1>
+        <div class="gap-4">
+          <button class="bg-(--clay) hover:bg-(--clay-hover) text-(--bg)"
+            >Algoritmo</button
+          >
+          <button class="bg-(--red) hover:bg-(--red-hover) text-(--bg)"
+            >Acervo</button
+          >
+        </div>
+      </section>
+      <section class="relative w-full h-[66dvh] rounded-[120px] md:rounded-full overflow-hidden">
+		<Algorithm />
+      </section>
+	  <section class="my-34">
+		  <h2 class="pb-13">Acervo</h2>
+		  <ProductsGrid />
+	  </section>
+	  
+    </main>
+  </div>
+</HomeLayout>
+
+<style>
+  #hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    height: 66dvh;
+  }
+
+  section {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+  }
+</style>
