@@ -11,19 +11,24 @@ import Algorithm from "../components/Algorithm.astro";
     <main class="md:px-12">
       <section id="hero">
         <h1 class="text-center text-balance">Curadoria inteligente para o seu cabelo.</h1>
-        <div class="gap-4">
-          <button class="bg-(--clay) hover:bg-(--clay-hover) text-(--bg)"
-            >Algoritmo</button
+        <div class="flex gap-4">
+          <a
+            class="rounded-full bg-(--clay) px-3 py-2 text-(--bg) transition-colors hover:bg-(--clay-hover)"
+            href="#algoritmo">Algoritmo</a
           >
-          <button class="bg-(--red) hover:bg-(--red-hover) text-(--bg)"
-            >Acervo</button
+          <a
+            class="rounded-full bg-(--red) px-3 py-2 text-(--bg) transition-colors hover:bg-(--red-hover)"
+            href="#acervo">Acervo</a
           >
         </div>
       </section>
-      <section class="relative w-full h-[66vh] rounded-[120px] lg:rounded-full overflow-hidden">
+      <section
+        id="algoritmo"
+        class="relative w-full h-[66vh] scroll-mt-24 rounded-[120px] lg:rounded-full overflow-hidden"
+      >
 		<Algorithm />
       </section>
-	  <section class="my-34">
+	  <section id="acervo" class="my-34 scroll-mt-24">
 		  <h2 class="pb-13">Acervo</h2>
 		  <ProductsGrid />
 	  </section>
