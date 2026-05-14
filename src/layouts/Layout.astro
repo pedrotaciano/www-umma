@@ -11,22 +11,19 @@ const { title = "Umma" } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <title>{title}</title>
-    {
-          <script
-            async
-            src={`https://www.googletagmanager.com/gtag/js?id=G-MDW8XFE46B`}
-          />
-          <script>
-            const w = window as any;
-            w.dataLayer = w.dataLayer || [];
-            function gtag(p0?: string, p1?: any) {
-              w.dataLayer.push(arguments);
-            }
-            gtag("js", new Date());
-            gtag("config", 'G-MDW8XFE46B');
-          </script>
-      
-    }
+    <script
+      async
+      src={`https://www.googletagmanager.com/gtag/js?id=G-MDW8XFE46B`}
+    />
+    <script>
+      const w = window as any;
+      w.dataLayer = w.dataLayer || [];
+      function gtag(p0?: string, p1?: any) {
+        w.dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", 'G-MDW8XFE46B');
+    </script>
   </head>
 
   <body>
