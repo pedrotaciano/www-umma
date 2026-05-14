@@ -12,10 +12,6 @@ html {
   color: var(--text);
 }
 
-body {
-  min-height: 100dvh;
-}
-
 h1 {
   font-size: 20px;
   margin: 0;
